@@ -39,6 +39,10 @@ class TaskQueue:
             *args: P.args,
             **kwargs: P.kwargs
     ) -> None:
+
+        if len(self._concur_queue) >= self._concur_size:
+            raise QueueFullError(f"Task queue is full: {self._wait_size}")
+
         if len(self._wait_queue) >= self._wait_size:
             raise QueueFullError(f"Task queue is full: {self._wait_size}")
 
